@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:news_bottom/screen/master_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+void main() async {
 
-void main() {
+    await dotenv.load(fileName: "assets/.env");
   runApp(const MyApp());
 }
 

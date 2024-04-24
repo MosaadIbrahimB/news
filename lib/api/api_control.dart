@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../model/news_response.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ApiControl {
-//https://newsapi.org/v2/top-headlines?country=us&apiKey=c25eb5dbbf394259b47b7f1fafb67b13
 
   static Future<NewsResponseModel> getNewsEverything({String ? category}) async {
     String baseUrl = "newsapi.org";
-    String apiKey = "c25eb5dbbf394259b47b7f1fafb67b13";
+    String apiKey = dotenv.env["Api_Key"]??"";
 
     Uri url = Uri.https(
         baseUrl, "v2/top-headlines", {
