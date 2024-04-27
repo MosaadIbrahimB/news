@@ -2,12 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../model/article_model.dart';
+
 class ArticleWidget extends StatelessWidget {
   ArticlesModel articlesModel;
   ArticleWidget({required this.articlesModel});
 
   @override
   Widget build(BuildContext context) {
+
+
     return Card(
       margin: const EdgeInsets.all(8),
       child: Padding(
@@ -26,7 +29,8 @@ class ArticleWidget extends StatelessWidget {
                   imageUrl: articlesModel.urlToImage ?? "",
                   placeholder: (context, url) =>
                   const Center(child: CircularProgressIndicator()),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  errorWidget: (context, url, error) =>
+                  const Icon(Icons.error),
                 ),
               ),
             ),
@@ -40,7 +44,6 @@ class ArticleWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-
             Text(
               " ${articlesModel.description ?? ""}     ",
               style: const TextStyle(
@@ -50,7 +53,6 @@ class ArticleWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 5),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -61,5 +63,10 @@ class ArticleWidget extends StatelessWidget {
         ),
       ),
     );
+
+
+    // return articlesModel.urlToImage == null
+    //     ? const SizedBox()
+    //     :
   }
 }

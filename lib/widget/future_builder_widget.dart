@@ -5,14 +5,27 @@ import '../model/article_model.dart';
 import '../model/news_response.dart';
 import 'article_widget.dart';
 
-class FutureBuilderWidget extends StatelessWidget {
+class FutureBuilderWidget extends StatefulWidget {
   String? category;
   FutureBuilderWidget({this.category});
 
   @override
+  State<FutureBuilderWidget> createState() => _FutureBuilderWidgetState();
+}
+
+class _FutureBuilderWidgetState extends State<FutureBuilderWidget> {
+  late Future<NewsResponseModel> data;
+
+  @override
+  void initState() {
+    super.initState();
+    data = ApiControl.getNewsEverything(category: widget.category);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder<NewsResponseModel>(
-      future: ApiControl.getNewsEverything(category: category),
+      future: data,
       builder:
           (BuildContext context, AsyncSnapshot<NewsResponseModel> snapshot) {
         String? message = snapshot.data?.message;
@@ -26,12 +39,17 @@ class FutureBuilderWidget extends StatelessWidget {
           return const Center(child: Text("Error"));
         }
         if (message != null) {
-          return Center(child: Container(
+          return Center(
+            child: Container(
               padding: const EdgeInsets.all(15),
-              child: Text(message,style: const TextStyle(
-                fontSize: 18,
-              ),),
-          ),);
+              child: Text(
+                message,
+                style: const TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+            ),
+          );
         }
         return ListView.builder(
             itemCount: articlesList.length,
